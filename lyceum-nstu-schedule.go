@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"kevich/lyceum-nstu-schedule/domain"
@@ -9,7 +8,7 @@ import (
 	"kevich/lyceum-nstu-schedule/tools"
 )
 
-func Handler(ctx context.Context, event domain.Event) (*domain.Response, error) {
+func Handler(_ any, event domain.Event) (*domain.Response, error) {
 
 	text := "Привет, я могу рассказать расписание инженерного лицея НГТУ. Расписание какого класса и в какой день вас интересует?"
 	if event.Request.OriginalUtterance != "" {
