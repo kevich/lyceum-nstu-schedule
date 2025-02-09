@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"kevich/lyceum-nstu-schedule/domain"
 	"kevich/lyceum-nstu-schedule/internal"
+	"kevich/lyceum-nstu-schedule/internal/api"
 	"kevich/lyceum-nstu-schedule/tools"
+	"net/http"
 )
 
 func Handler(_ any, event domain.Event) (*domain.Response, error) {
@@ -30,9 +32,11 @@ func Handler(_ any, event domain.Event) (*domain.Response, error) {
 }
 
 func main() {
-	jsonData := internal.ApiGetData()
+	apiClient := api.ScheduleAPI{&http.Client{}, api.BaseUrl}
+	jsonData, err := apiClient.ApiGetData()
+	tools.CheckError(err, "failed getting json %v")
 	var input domain.ScheduleDataJSON
-	err := json.Unmarshal(jsonData, &input)
+	err = json.Unmarshal(jsonData, &input)
 	tools.CheckError(err, "failed parsing json %v")
 	reformatted := internal.ReformatSchedule(input)
 	my := reformatted["6а"]["04.02.2025"]
