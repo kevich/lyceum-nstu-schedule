@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"kevich/lyceum-nstu-schedule/domain"
 	"kevich/lyceum-nstu-schedule/tools"
+	"reflect"
 	"strconv"
 	"time"
 )
@@ -15,30 +16,42 @@ func isCancelledSubject[T any](s T) bool {
 	return false
 }
 
-func ReformatSchedule(jsonData domain.ScheduleDataJSON) domain.Schedule {
+func ReformatSchedule(jsonData domain.ScheduleDataJSON) (domain.Schedule, error) {
 	schedule := make(domain.Schedule)
-	nowDateString := time.Now().Format("2006-01-02")
-	todayDay, err := time.Parse("2006-01-02", nowDateString)
-	tools.CheckError(err, "Could not get current date")
-	todayWeekday := time.Duration(todayDay.Weekday()) - 1
-	firstDayOfWeek := todayDay.Add(-24 * todayWeekday * time.Hour)
-	for classKey, class := range jsonData.CLASS_SCHEDULE.School {
-		reformatWeek(jsonData, classKey, schedule, firstDayOfWeek, class)
+	// nowDateString := time.Now().Format("2006-01-02")
+	// todayDay, err := time.Parse("2006-01-02", nowDateString)
+	// tools.CheckError(err, "Could not get current date")
+	// todayWeekday := time.Duration(todayDay.Weekday()) - 1
+	// firstDayOfWeek := todayDay.Add(-24 * todayWeekday * time.Hour)
+	periods := reflect.ValueOf(jsonData.PERIODS).MapKeys()
+	if len(periods) == 0 {
+		return nil, fmt.Errorf("could not find schedule data")
 	}
-	return schedule
+	for _, period := range periods {
+		for classKey, class := range jsonData.CLASS_SCHEDULE[period.String()] {
+			startDate, err := time.Parse("02.01.2006", jsonData.PERIODS[period.String()].StartDate)
+			endDate, err := time.Parse("02.01.2006", jsonData.PERIODS[period.String()].EndDate)
+			tools.CheckError(err, "Could not get start date")
+			reformatWeek(jsonData, classKey, schedule, startDate, endDate, class)
+		}
+	}
+
+	return schedule, nil
 }
 
-func reformatWeek(jsonData domain.ScheduleDataJSON, classKey string, schedule domain.Schedule, firstDayOfWeek time.Time, class domain.ClassScheduleJSON) {
+func reformatWeek(jsonData domain.ScheduleDataJSON, classKey string, schedule domain.Schedule, startDate time.Time, endDate time.Time, class domain.ClassScheduleJSON) {
 	className := jsonData.CLASSES[classKey]
 	schedule[className] = make(domain.ClassSchedule)
-	for dayNumber := 1; dayNumber < 7; dayNumber++ {
-		reformatDay(jsonData, classKey, schedule, firstDayOfWeek, class, dayNumber, className)
+	currentDate := startDate
+	for currentDate.Before(endDate) {
+		reformatDay(jsonData, classKey, schedule, currentDate, class, className)
+		currentDate = currentDate.AddDate(0, 0, 1)
 	}
 }
 
-func reformatDay(jsonData domain.ScheduleDataJSON, classKey string, schedule domain.Schedule, firstDayOfWeek time.Time, class domain.ClassScheduleJSON, dayNumber int, className string) {
-	dayOfWeek := firstDayOfWeek.Add(24 * time.Duration(dayNumber-1) * time.Hour)
-	dayOfWeekString := dayOfWeek.Format("02.01.2006")
+func reformatDay(jsonData domain.ScheduleDataJSON, classKey string, schedule domain.Schedule, currentDay time.Time, class domain.ClassScheduleJSON, className string) {
+	dayNumber := int(currentDay.Weekday())
+	dayOfWeekString := currentDay.Format("02.01.2006")
 	schedule[className][dayOfWeekString] = make(domain.DaySchedule)
 	for lessonNumber := 1; lessonNumber <= jsonData.LESSONSINDAY; lessonNumber++ {
 		reformatLesson(jsonData, classKey, schedule, dayNumber, lessonNumber, class, dayOfWeekString, className)

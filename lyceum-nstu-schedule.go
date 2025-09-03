@@ -38,7 +38,8 @@ func main() {
 	var input domain.ScheduleDataJSON
 	err = json.Unmarshal(jsonData, &input)
 	tools.CheckError(err, "failed parsing json %v")
-	reformatted := internal.ReformatSchedule(input)
+	reformatted, err := internal.ReformatSchedule(input)
+	tools.CheckError(err, "could not reformat schedule")
 	my := reformatted["6а"]["04.02.2025"]
 	fmt.Println(reformatted)
 	fmt.Println(my)

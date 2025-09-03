@@ -1,7 +1,13 @@
-version: '3'
+version: "3"
 
 tasks:
   archive:
     cmds:
       - rm lyceum-nstu-schedule.zip
       - zip -r lyceum-nstu-schedule.zip . -x "*.DS_Store" -x ".idea/*" -x ".git/*"
+  tests:clean:
+    cmd: go clean -testcache
+  tests:
+    cmd: go test ./...
+  tests:coverage:
+    cmd: go test -coverprofile ./...
