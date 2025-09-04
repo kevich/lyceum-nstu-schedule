@@ -32,7 +32,7 @@ func Handler(_ any, event domain.Event) (*domain.Response, error) {
 }
 
 func main() {
-	apiClient := api.ScheduleAPI{&http.Client{}, api.BaseUrl}
+	apiClient := api.ScheduleAPI{Client: &http.Client{}, BaseURL: api.BaseUrl}
 	jsonData, err := apiClient.ApiGetData()
 	tools.CheckError(err, "failed getting json %v")
 	var input domain.ScheduleDataJSON
