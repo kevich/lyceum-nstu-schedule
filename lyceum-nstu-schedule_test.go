@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
-	"github.com/stretchr/testify/assert"
 	"kevich/lyceum-nstu-schedule/domain"
 	"os"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestHandler(t *testing.T) {
@@ -15,7 +17,7 @@ func TestHandler(t *testing.T) {
 	err = json.Unmarshal(jsonTextBytes, &event)
 	assert.NoError(t, err, "failed parsing json %v")
 	var response *domain.Response
-	response, err = Handler("", event)
+	response, err = Handler(context.Background(), event)
 	if response != nil {
 		assert.Equal(t, "Привет, я могу рассказать расписание инженерного лицея НГТУ. Расписание какого класса и в какой день вас интересует?", response.Response.Text)
 	} else {
