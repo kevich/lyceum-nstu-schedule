@@ -4,7 +4,7 @@ tasks:
   archive:
     cmds:
       - rm lyceum-nstu-schedule.zip
-      - zip -r lyceum-nstu-schedule.zip . -x "*.DS_Store" -x ".idea/*" -x ".git/*"
+      - zip -r lyceum-nstu-schedule.zip . -x "*_test.go" -x "*.DS_Store" -x ".idea/*" -x ".git/*" -x ".github/*" -x "test/*" -x "Taskfile.yaml" -x ".gitignore" -x "cover.out" -x "lyceum-nstu-schedule"
   tests:clean:
     cmd: go clean -testcache
   tests:
