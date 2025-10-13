@@ -1,0 +1,115 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+## Overview
+A Go application that scrapes and transforms school schedule data from NSTU Lyceum website into a structured format for Yandex.Alice voice assistant integration.
+
+## Architecture
+
+### Core Principles
+- **Domain-Driven Design**: Clear separation between domain models, infrastructure, and application logic
+- **Pure Functions**: Business logic uses pure transformations without side effects
+- **Test-Driven**: Comprehensive testing with fixtures and table-driven tests
+- **Minimal Dependencies**: Uses standard library with minimal external packages
+- **Russian Locale**: Designed for Russian-speaking users and school system
+
+## Key Components
+
+### Domain Layer (`domain/`)
+- **`types.go`**: Core schedule data structures
+  - `Lesson`: Individual lesson with time, subject, teacher, room
+  - `DaySchedule`: Map of lesson numbers to lessons for a day
+  - `ClassSchedule`: Map of dates to day schedules for a class
+  - `Schedule`: Top-level map of class names to class schedules
+
+- **`json.go`**: NIKA JSON input schema
+  - `ScheduleDataJSON`: Complete input structure with index-based mappings
+  - Handles subjects, teachers, rooms, periods, exchanges, and replacements
+
+- **`yandexTypes.go`**: Yandex.Alice voice assistant contracts
+  - Request/response types for skill integration
+  - Entity and intent handling for natural language processing
+
+### Infrastructure Layer (`internal/api/`)
+- **`ScheduleAPI`**: HTTP client for web scraping
+  - Scrapes `schedule.html` to find JavaScript data file
+  - Extracts `NIKA=...;` JSON payload using regex
+  - Handles HTTP errors and missing data gracefully
+
+### Application Layer (`internal/convert.go`)
+- **`ReformatSchedule`**: Main transformation function
+  - Converts index-based JSON to human-readable schedule
+  - Expands date ranges and handles replacements/cancellations
+  - Pure function with no side effects
+
+### Entry Point (`lyceum-nstu-schedule.go`)
+- **`Handler`**: Yandex.Alice skill handler
+- **`main`**: Development entry point for testing pipeline
+
+## Data Flow
+
+1. **Fetch**: `ScheduleAPI.ApiGetData()` scrapes website
+2. **Parse**: JSON unmarshaling to `ScheduleDataJSON`
+3. **Transform**: `ReformatSchedule()` converts to internal `Schedule` format
+4. **Respond**: Handler returns Yandex.Alice response
+
+## Development Guidelines
+
+### Code Style
+- Use descriptive names avoiding abbreviations
+- Keep functions small and focused
+- Prefer composition over inheritance
+- Handle errors explicitly with meaningful messages
+
+### Error Handling
+- Use `tools.CheckError()` for consistent error logging
+- Return errors from functions rather than panicking
+- Validate inputs early and fail fast
+
+### Testing
+- Write table-driven tests for multiple scenarios
+- Use fixtures for complex data structures
+- Mock external dependencies (HTTP clients)
+- Test both happy path and error cases
+
+### Dependencies
+- Minimize external dependencies
+- Use `testify` for assertions and `go-cmp` for deep comparisons
+- Keep `go.mod` clean with indirect dependencies properly managed
+
+## Key Features
+
+### Schedule Processing
+- Handles multiple periods and date ranges
+- Supports lesson replacements and cancellations
+- Maps index-based data to human-readable format
+- Preserves time ranges and room assignments
+
+### Web Scraping
+- Robust HTML parsing with regex extraction
+- Handles dynamic JavaScript file names
+- Graceful error handling for missing data
+- Testable with mock HTTP servers
+
+### Voice Assistant Integration
+- Yandex.Alice skill contract compliance
+- Russian language support
+- Natural language intent handling
+- Session management and user context
+
+## Future Considerations
+
+### Potential Improvements
+- Configuration management for URLs and settings
+- Structured logging instead of console output
+- Input validation and sanitization
+- Timezone handling for date operations
+- Concurrent processing for multiple classes
+- Caching for frequently requested schedules
+- Error recovery and retry mechanisms
+- Metrics and monitoring integration
+
+There is a Taskfile.yaml for comprehensive run of common commands
