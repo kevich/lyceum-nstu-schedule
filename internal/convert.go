@@ -16,13 +16,43 @@ func isCancelledSubject[T any](s T) bool {
 	return false
 }
 
+func getReplacementSubject(replacement interface{}) []string {
+	value := reflect.ValueOf(replacement)
+
+	if value.Kind() != reflect.Slice && value.Kind() != reflect.Array {
+		return nil
+	}
+
+	var result []string
+	for i := 0; i < value.Len(); i++ {
+		item := value.Index(i).Interface()
+		if s, ok := item.(string); ok {
+			result = append(result, s)
+		}
+	}
+	return result
+}
+
+func getLesson(jsonData domain.ScheduleDataJSON, lessonNumber int, timeRange [2]string, subject []string, teacher []string, roomNumber []string, isCancelled bool, isReplaced bool) []domain.Lesson {
+	lessons := make([]domain.Lesson, len(subject))
+
+	for i := range subject {
+		lessons[i] = domain.Lesson{
+			Number:      lessonNumber,
+			TimeRange:   timeRange,
+			Name:        jsonData.SUBJECTS[subject[i]],
+			Teacher:     jsonData.TEACHERS[teacher[i]],
+			RoomNumber:  jsonData.ROOMS[roomNumber[i]],
+			IsCancelled: isCancelled,
+			IsReplaced:  isReplaced,
+		}
+	}
+
+	return lessons
+}
+
 func ReformatSchedule(jsonData domain.ScheduleDataJSON) (domain.Schedule, error) {
 	schedule := make(domain.Schedule)
-	// nowDateString := time.Now().Format("2006-01-02")
-	// todayDay, err := time.Parse("2006-01-02", nowDateString)
-	// tools.CheckError(err, "Could not get current date")
-	// todayWeekday := time.Duration(todayDay.Weekday()) - 1
-	// firstDayOfWeek := todayDay.Add(-24 * todayWeekday * time.Hour)
 	periods := reflect.ValueOf(jsonData.PERIODS).MapKeys()
 	if len(periods) == 0 {
 		return nil, fmt.Errorf("could not find schedule data")
@@ -61,39 +91,46 @@ func reformatDay(jsonData domain.ScheduleDataJSON, classKey string, schedule dom
 func reformatLesson(jsonData domain.ScheduleDataJSON, classKey string, schedule domain.Schedule, dayNumber int, lessonNumber int, class domain.ClassScheduleJSON, dayOfWeekString string, className string) {
 	dayLesson := fmt.Sprintf("%d%.2d", dayNumber, lessonNumber)
 	jsonClassDaySchedule, found := class[dayLesson]
-	if found != false {
-		for i := range jsonClassDaySchedule.Subject {
-			replacement := jsonData.CLASS_EXCHANGE[classKey][dayOfWeekString][strconv.Itoa(lessonNumber)]
-			classDaySchedule := jsonClassDaySchedule
-			subject := jsonData.SUBJECTS[classDaySchedule.Subject[i]]
-			teacher := jsonData.TEACHERS[classDaySchedule.Teacher[i]]
-			roomNumber := jsonData.ROOMS[classDaySchedule.Room[i]]
-			isCancelled := false
-			if isCancelledSubject(replacement.Subject) {
-				isCancelled = true
-			} else {
-				if replacementSubject, ok := replacement.Subject.([]string); ok {
-					subject = jsonData.SUBJECTS[replacementSubject[i]]
-				}
-				if replacement.Teacher != nil {
-					teacher = jsonData.TEACHERS[replacement.Teacher[i]]
-				}
-				if replacement.Room != nil {
-					roomNumber = jsonData.TEACHERS[replacement.Room[i]]
-				}
-			}
+	replacement := jsonData.CLASS_EXCHANGE[classKey][dayOfWeekString][strconv.Itoa(lessonNumber)]
+	var (
+		subject     []string
+		teacher     []string
+		room        []string
+		isCancelled bool
+		isReplaced  bool
+	)
 
-			if i == 0 {
-				schedule[className][dayOfWeekString][lessonNumber] = make([]domain.Lesson, len(classDaySchedule.Subject))
-			}
-			schedule[className][dayOfWeekString][lessonNumber][i] = domain.Lesson{
-				Number:      lessonNumber,
-				TimeRange:   jsonData.LESSON_TIMES[strconv.Itoa(lessonNumber)],
-				Name:        subject,
-				Teacher:     teacher,
-				RoomNumber:  roomNumber,
-				IsCancelled: isCancelled,
-			}
+	switch {
+	case replacement.Subject != nil:
+		if isCancelledSubject(replacement.Subject) {
+			subject = jsonClassDaySchedule.Subject
+			teacher = jsonClassDaySchedule.Teacher
+			room = jsonClassDaySchedule.Room
+			isCancelled = true
+		} else {
+			subject = getReplacementSubject(replacement.Subject)
+			teacher = replacement.Teacher
+			room = replacement.Room
+			isReplaced = true
 		}
+
+	case found:
+		subject = jsonClassDaySchedule.Subject
+		teacher = jsonClassDaySchedule.Teacher
+		room = jsonClassDaySchedule.Room
+
+	default:
+		return
 	}
+
+	schedule[className][dayOfWeekString][lessonNumber] = getLesson(
+		jsonData,
+		lessonNumber,
+		jsonData.LESSON_TIMES[strconv.Itoa(lessonNumber)],
+		subject,
+		teacher,
+		room,
+		isCancelled,
+		isReplaced,
+	)
 }

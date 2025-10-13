@@ -17,7 +17,8 @@ func TestReformatSchedule(t *testing.T) {
 		inpusJsonFile    string
 		expectedJsonFile string
 	}{
-		{"test", "./../test/data/schedule_case1_in.json", "./../test/data/schedule_case1_out.json"},
+		{"test casual", "./../test/data/schedule_case1_in.json", "./../test/data/schedule_case1_out.json"},
+		{"test with replacements", "./../test/data/schedule_replacement_case_in.json", "./../test/data/schedule_replacement_case_out.json"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

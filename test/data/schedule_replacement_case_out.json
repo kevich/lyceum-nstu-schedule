@@ -1,0 +1,644 @@
+{
+  "7а": {
+    "11.10.2025": {
+      "10": [
+        {
+          "Number": 10,
+          "TimeRange": ["16:40", "17:20"],
+          "Name": "Инженер авиастроительного профиля",
+          "Teacher": "Акимов М.А.",
+          "RoomNumber": "1к 504",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "4": [
+        {
+          "Number": 4,
+          "TimeRange": ["11:15", "12:00"],
+          "Name": "Физика",
+          "Teacher": "Зайцева О.",
+          "RoomNumber": "207",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "5": [
+        {
+          "Number": 5,
+          "TimeRange": ["12:10", "12:55"],
+          "Name": "История",
+          "Teacher": "Гонтаренко Л.И.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "6": [
+        {
+          "Number": 6,
+          "TimeRange": ["13:05", "13:50"],
+          "Name": "Информатика",
+          "Teacher": "Орлова А.А.",
+          "RoomNumber": "303",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 6,
+          "TimeRange": ["13:05", "13:50"],
+          "Name": "Информатика",
+          "Teacher": "Гурина А.А.",
+          "RoomNumber": "301",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "7": [
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "Ин.яз",
+          "Teacher": "Олифирович Е.В.",
+          "RoomNumber": "226",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "Ин.яз",
+          "Teacher": "Победа А.А.",
+          "RoomNumber": "109",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "8": [
+        {
+          "Number": 8,
+          "TimeRange": ["14:55", "15:35"],
+          "Name": "Литература",
+          "Teacher": "Кондратьева И.Г.",
+          "RoomNumber": "211",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "9": [
+        {
+          "Number": 9,
+          "TimeRange": ["15:50", "16:30"],
+          "Name": "Инженер авиастроительного профиля",
+          "Teacher": "Акимов М.А.",
+          "RoomNumber": "1к 504",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ]
+    },
+    "12.10.2025": {},
+    "13.10.2025": {
+      "10": [
+        {
+          "Number": 10,
+          "TimeRange": ["16:40", "17:20"],
+          "Name": "Алгебра",
+          "Teacher": "Гмерина Л.С.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": true
+        }
+      ],
+      "11": [
+        {
+          "Number": 11,
+          "TimeRange": ["17:30", "18:10"],
+          "Name": "Разговор о важном",
+          "Teacher": "Гмерина Л.С.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": true
+        }
+      ],
+      "12": [
+        {
+          "Number": 12,
+          "TimeRange": ["18:20", "19:00"],
+          "Name": "История",
+          "Teacher": "Гонтаренко Л.И.",
+          "RoomNumber": "232",
+          "IsCancelled": true,
+          "IsReplaced": false
+        }
+      ],
+      "6": [
+        {
+          "Number": 6,
+          "TimeRange": ["13:05", "13:50"],
+          "Name": "",
+          "Teacher": "",
+          "RoomNumber": "",
+          "IsCancelled": false,
+          "IsReplaced": true
+        },
+        {
+          "Number": 6,
+          "TimeRange": ["13:05", "13:50"],
+          "Name": "Информатика",
+          "Teacher": "Гурина А.А.",
+          "RoomNumber": "301",
+          "IsCancelled": false,
+          "IsReplaced": true
+        }
+      ],
+      "7": [
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "Русский язык",
+          "Teacher": "Кондратьева И.Г.",
+          "RoomNumber": "211",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "8": [
+        {
+          "Number": 8,
+          "TimeRange": ["14:55", "15:35"],
+          "Name": "Ин.яз",
+          "Teacher": "Олифирович Е.В.",
+          "RoomNumber": "226",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 8,
+          "TimeRange": ["14:55", "15:35"],
+          "Name": "Ин.яз",
+          "Teacher": "Победа А.А.",
+          "RoomNumber": "109",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "9": [
+        {
+          "Number": 9,
+          "TimeRange": ["15:50", "16:30"],
+          "Name": "Физика",
+          "Teacher": "Зайцева О.",
+          "RoomNumber": "212",
+          "IsCancelled": false,
+          "IsReplaced": true
+        }
+      ]
+    },
+    "14.10.2025": {
+      "10": [
+        {
+          "Number": 10,
+          "TimeRange": ["16:40", "17:20"],
+          "Name": "Биология",
+          "Teacher": "Потапова М.В.",
+          "RoomNumber": "201",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "11": [
+        {
+          "Number": 11,
+          "TimeRange": ["17:30", "18:10"],
+          "Name": "Литература",
+          "Teacher": "Кондратьева И.Г.",
+          "RoomNumber": "211",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "12": [
+        {
+          "Number": 12,
+          "TimeRange": ["18:20", "19:00"],
+          "Name": "География",
+          "Teacher": "Митина Н.Б.",
+          "RoomNumber": "126",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "6": [
+        {
+          "Number": 6,
+          "TimeRange": ["13:05", "13:50"],
+          "Name": "Изо",
+          "Teacher": "Столбченко А.Н.",
+          "RoomNumber": "324",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "7": [
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "БАС",
+          "Teacher": "Авдюшева М.Н",
+          "RoomNumber": "103",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "Ин.яз",
+          "Teacher": "Победа А.А.",
+          "RoomNumber": "109",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "8": [
+        {
+          "Number": 8,
+          "TimeRange": ["14:55", "15:35"],
+          "Name": "Ин.яз",
+          "Teacher": "Олифирович Е.В.",
+          "RoomNumber": "226",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 8,
+          "TimeRange": ["14:55", "15:35"],
+          "Name": "БАС",
+          "Teacher": "Авдюшева М.Н",
+          "RoomNumber": "103",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "9": [
+        {
+          "Number": 9,
+          "TimeRange": ["15:50", "16:30"],
+          "Name": "Алгебра",
+          "Teacher": "Гмерина Л.С.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ]
+    },
+    "15.10.2025": {
+      "10": [
+        {
+          "Number": 10,
+          "TimeRange": ["16:40", "17:20"],
+          "Name": "Физкультура",
+          "Teacher": "Прядухин Д.С.",
+          "RoomNumber": "спортзал",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "11": [
+        {
+          "Number": 11,
+          "TimeRange": ["17:30", "18:10"],
+          "Name": "История",
+          "Teacher": "Гонтаренко Л.И.",
+          "RoomNumber": "232",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "12": [
+        {
+          "Number": 12,
+          "TimeRange": ["18:20", "19:00"],
+          "Name": "Физика",
+          "Teacher": "Зайцева О.",
+          "RoomNumber": "212",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "7": [
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "Вероятность и статистика",
+          "Teacher": "Гмерина Л.С.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "8": [
+        {
+          "Number": 8,
+          "TimeRange": ["14:55", "15:35"],
+          "Name": "Геометрия",
+          "Teacher": "Гмерина Л.С.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "9": [
+        {
+          "Number": 9,
+          "TimeRange": ["15:50", "16:30"],
+          "Name": "Русский язык",
+          "Teacher": "Кондратьева И.Г.",
+          "RoomNumber": "211",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ]
+    },
+    "16.10.2025": {
+      "10": [
+        {
+          "Number": 10,
+          "TimeRange": ["16:40", "17:20"],
+          "Name": "Русский язык",
+          "Teacher": "Кондратьева И.Г.",
+          "RoomNumber": "211",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "11": [
+        {
+          "Number": 11,
+          "TimeRange": ["17:30", "18:10"],
+          "Name": "Музыка",
+          "Teacher": "Денисова Л.В.",
+          "RoomNumber": "115(Н)",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "12": [
+        {
+          "Number": 12,
+          "TimeRange": ["18:20", "19:00"],
+          "Name": "Алгебра",
+          "Teacher": "Гмерина Л.С.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "7": [
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "Русский язык",
+          "Teacher": "Кондратьева И.Г.",
+          "RoomNumber": "211",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "8": [
+        {
+          "Number": 8,
+          "TimeRange": ["14:55", "15:35"],
+          "Name": "Физкультура",
+          "Teacher": "Прядухин Д.С.",
+          "RoomNumber": "спортзал",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "9": [
+        {
+          "Number": 9,
+          "TimeRange": ["15:50", "16:30"],
+          "Name": "Алгебра",
+          "Teacher": "Гмерина Л.С.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ]
+    },
+    "17.10.2025": {
+      "10": [
+        {
+          "Number": 10,
+          "TimeRange": ["16:40", "17:20"],
+          "Name": "Физкультура",
+          "Teacher": "Прядухин Д.С.",
+          "RoomNumber": "спортзал",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "11": [
+        {
+          "Number": 11,
+          "TimeRange": ["17:30", "18:10"],
+          "Name": "Труд(технология)",
+          "Teacher": "Михайлова В.А.",
+          "RoomNumber": "105",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 11,
+          "TimeRange": ["17:30", "18:10"],
+          "Name": "Труд(технология)",
+          "Teacher": "Хорошилов М.С.",
+          "RoomNumber": "201",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 11,
+          "TimeRange": ["17:30", "18:10"],
+          "Name": "Труд(технология)",
+          "Teacher": "Авдюшева М.Н",
+          "RoomNumber": "103",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "12": [
+        {
+          "Number": 12,
+          "TimeRange": ["18:20", "19:00"],
+          "Name": "Труд(технология)",
+          "Teacher": "Михайлова В.А.",
+          "RoomNumber": "105",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 12,
+          "TimeRange": ["18:20", "19:00"],
+          "Name": "Труд(технология)",
+          "Teacher": "Хорошилов М.С.",
+          "RoomNumber": "201",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 12,
+          "TimeRange": ["18:20", "19:00"],
+          "Name": "Труд(технология)",
+          "Teacher": "Авдюшева М.Н",
+          "RoomNumber": "103",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "6": [
+        {
+          "Number": 6,
+          "TimeRange": ["13:05", "13:50"],
+          "Name": "Навигационная астрономия",
+          "Teacher": "Каргина Л.А.",
+          "RoomNumber": "4к202",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "7": [
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "Геометрия",
+          "Teacher": "Гмерина Л.С.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "8": [
+        {
+          "Number": 8,
+          "TimeRange": ["14:55", "15:35"],
+          "Name": "Геометрия",
+          "Teacher": "Гмерина Л.С.",
+          "RoomNumber": "228",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "9": [
+        {
+          "Number": 9,
+          "TimeRange": ["15:50", "16:30"],
+          "Name": "География",
+          "Teacher": "Митина Н.Б.",
+          "RoomNumber": "126",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ]
+    },
+    "18.10.2025": {
+      "10": [
+        {
+          "Number": 10,
+          "TimeRange": ["16:40", "17:20"],
+          "Name": "Инженер авиастроительного профиля",
+          "Teacher": "Акимов М.А.",
+          "RoomNumber": "1к 504",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "4": [
+        {
+          "Number": 4,
+          "TimeRange": ["11:15", "12:00"],
+          "Name": "Физика",
+          "Teacher": "Зайцева О.",
+          "RoomNumber": "207",
+          "IsCancelled": true,
+          "IsReplaced": false
+        }
+      ],
+      "5": [
+        {
+          "Number": 5,
+          "TimeRange": ["12:10", "12:55"],
+          "Name": "",
+          "Teacher": "",
+          "RoomNumber": "",
+          "IsCancelled": false,
+          "IsReplaced": true
+        },
+        {
+          "Number": 5,
+          "TimeRange": ["12:10", "12:55"],
+          "Name": "Информатика",
+          "Teacher": "Гурина А.А.",
+          "RoomNumber": "301",
+          "IsCancelled": false,
+          "IsReplaced": true
+        }
+      ],
+      "6": [
+        {
+          "Number": 6,
+          "TimeRange": ["13:05", "13:50"],
+          "Name": "Физика",
+          "Teacher": "Зайцева О.",
+          "RoomNumber": "207",
+          "IsCancelled": false,
+          "IsReplaced": true
+        }
+      ],
+      "7": [
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "Ин.яз",
+          "Teacher": "Олифирович Е.В.",
+          "RoomNumber": "226",
+          "IsCancelled": false,
+          "IsReplaced": false
+        },
+        {
+          "Number": 7,
+          "TimeRange": ["14:00", "14:40"],
+          "Name": "Ин.яз",
+          "Teacher": "Победа А.А.",
+          "RoomNumber": "109",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "8": [
+        {
+          "Number": 8,
+          "TimeRange": ["14:55", "15:35"],
+          "Name": "Литература",
+          "Teacher": "Кондратьева И.Г.",
+          "RoomNumber": "211",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ],
+      "9": [
+        {
+          "Number": 9,
+          "TimeRange": ["15:50", "16:30"],
+          "Name": "Инженер авиастроительного профиля",
+          "Teacher": "Акимов М.А.",
+          "RoomNumber": "1к 504",
+          "IsCancelled": false,
+          "IsReplaced": false
+        }
+      ]
+    }
+  }
+}

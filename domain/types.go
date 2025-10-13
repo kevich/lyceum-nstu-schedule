@@ -7,6 +7,7 @@ type Lesson struct {
 	Teacher     string
 	RoomNumber  string
 	IsCancelled bool
+	IsReplaced  bool
 }
 type DaySchedule map[int][]Lesson
 type ClassSchedule map[string]DaySchedule
