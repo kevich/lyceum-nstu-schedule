@@ -82,7 +82,7 @@ func reformatWeek(jsonData domain.ScheduleDataJSON, classKey string, schedule do
 func reformatDay(jsonData domain.ScheduleDataJSON, classKey string, schedule domain.Schedule, currentDay time.Time, class domain.ClassScheduleJSON, className string) {
 	dayNumber := int(currentDay.Weekday())
 	dayOfWeekString := currentDay.Format("02.01.2006")
-	schedule[className][dayOfWeekString] = make(domain.DaySchedule)
+	schedule[className][dayOfWeekString] = make([][]domain.Lesson, 0)
 	for lessonNumber := 1; lessonNumber <= jsonData.LESSONSINDAY; lessonNumber++ {
 		reformatLesson(jsonData, classKey, schedule, dayNumber, lessonNumber, class, dayOfWeekString, className)
 	}
@@ -123,7 +123,7 @@ func reformatLesson(jsonData domain.ScheduleDataJSON, classKey string, schedule 
 		return
 	}
 
-	schedule[className][dayOfWeekString][lessonNumber] = getLesson(
+	schedule[className][dayOfWeekString] = append(schedule[className][dayOfWeekString], getLesson(
 		jsonData,
 		lessonNumber,
 		jsonData.LESSON_TIMES[strconv.Itoa(lessonNumber)],
@@ -132,5 +132,5 @@ func reformatLesson(jsonData domain.ScheduleDataJSON, classKey string, schedule 
 		room,
 		isCancelled,
 		isReplaced,
-	)
+	))
 }

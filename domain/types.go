@@ -9,7 +9,7 @@ type Lesson struct {
 	IsCancelled bool
 	IsReplaced  bool
 }
-type DaySchedule map[int][]Lesson
+type DaySchedule [][]Lesson
 type ClassSchedule map[string]DaySchedule
 
 type Schedule map[string]ClassSchedule

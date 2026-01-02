@@ -50,7 +50,6 @@ func (internal *ScheduleAPI) ApiGetData() ([]byte, error) {
 		return nil, fmt.Errorf("could not find schedule data")
 	}
 	jsonText = string(matches[1])
-	fmt.Println(jsonText)
 
 	return []byte(strings.Trim(jsonText, "\n ")), err
 }
