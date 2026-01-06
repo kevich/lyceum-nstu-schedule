@@ -30,6 +30,6 @@ func FormatDayToAliceResponse(day string, daySchedule domain.DaySchedule) string
 		}
 	}
 
-	dayString += fmt.Sprintf("Уроки закончатся в %s\n", daySchedule[len(daySchedule)-1][0].TimeRange[0])
+	dayString += fmt.Sprintf("Уроки закончатся в %s\n", daySchedule[len(daySchedule)-1][0].TimeRange[1])
 	return dayString
 }

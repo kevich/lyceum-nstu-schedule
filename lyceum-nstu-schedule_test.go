@@ -112,7 +112,7 @@ func TestFetchDataAndReturnAliceResponse(t *testing.T) {
 Математика
 Русский язык
 Физика
-Уроки закончатся в 10:20
+Уроки закончатся в 11:05
 `,
 		},
 	}
