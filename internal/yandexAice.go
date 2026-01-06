@@ -1,9 +1,105 @@
 package internal
 
 import (
+	"context"
 	"fmt"
 	"kevich/lyceum-nstu-schedule/domain"
+	"time"
 )
+
+type ScheduleFetcher func(class string, date string) string
+
+type AliceHandler struct {
+	Fetcher     ScheduleFetcher
+	TimeNowFunc func() time.Time // For testing, defaults to time.Now
+}
+
+func NewAliceHandler(fetcher ScheduleFetcher) *AliceHandler {
+	return &AliceHandler{
+		Fetcher:     fetcher,
+		TimeNowFunc: time.Now,
+	}
+}
+
+const GreetingText = "Привет, я могу рассказать расписание инженерного лицея НГТУ. Расписание какого класса и в какой день вас интересует?"
+
+func (h *AliceHandler) Handle(ctx context.Context, event domain.Event) (*domain.Response, error) {
+	text := GreetingText
+
+	// Check if we have a class_and_date intent
+	intent := event.Request.NLU.Intents.ClassAndDate
+	if intent.Slots.ClassNumber.Value != nil && intent.Slots.ClassCharacter.Value != nil {
+		className := h.extractClassName(intent.Slots)
+		date := h.resolveDate(event.Meta.Timezone, intent.Slots.Date)
+
+		if className != "" && date != "" && h.Fetcher != nil {
+			text = h.Fetcher(className, date)
+		}
+	}
+
+	return &domain.Response{
+		Version: event.Version,
+		Session: domain.ResponseSession{
+			SessionID: event.Session.SessionID,
+			MessageID: event.Session.MessageID,
+			UserID:    event.Session.UserID,
+		},
+		Response: domain.ResponsePayload{
+			Text:       text,
+			EndSession: false,
+		},
+	}, nil
+}
+
+func (h *AliceHandler) extractClassName(slots domain.SlotsClassAndDate) string {
+	classNum, ok := slots.ClassNumber.Value.(float64)
+	if !ok {
+		return ""
+	}
+	classChar, ok := slots.ClassCharacter.Value.(string)
+	if !ok {
+		return ""
+	}
+	return fmt.Sprintf("%d%s", int(classNum), classChar)
+}
+
+func (h *AliceHandler) resolveDate(timezone string, dateSlot domain.Slot) string {
+	if dateSlot.Value == nil {
+		return ""
+	}
+
+	valueMap, ok := dateSlot.Value.(map[string]interface{})
+	if !ok {
+		return ""
+	}
+
+	loc, err := time.LoadLocation(timezone)
+	if err != nil {
+		loc = time.UTC
+	}
+
+	now := h.TimeNowFunc().In(loc)
+
+	if dayIsRelative, ok := valueMap["day_is_relative"].(bool); ok && dayIsRelative {
+		if dayOffset, ok := valueMap["day"].(float64); ok {
+			targetDate := now.AddDate(0, 0, int(dayOffset))
+			return targetDate.Format("02.01.2006")
+		}
+	}
+
+	day, dayOk := valueMap["day"].(float64)
+	month, monthOk := valueMap["month"].(float64)
+	year, yearOk := valueMap["year"].(float64)
+
+	if dayOk && monthOk {
+		if !yearOk {
+			year = float64(now.Year())
+		}
+		return fmt.Sprintf("%02d.%02d.%d", int(day), int(month), int(year))
+	}
+
+	return ""
+}
 
 func FormatDayToAliceResponse(day string, daySchedule domain.DaySchedule) string {
 	dayString := ""

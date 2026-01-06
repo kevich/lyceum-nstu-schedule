@@ -1,11 +1,82 @@
 package internal
 
 import (
+	"context"
+	"encoding/json"
 	"kevich/lyceum-nstu-schedule/domain"
+	"os"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
+
+func TestHandler(t *testing.T) {
+	tests := []struct {
+		name             string
+		inputJsonFile    string
+		expectedResponse string
+		mockFetcher      ScheduleFetcher
+		mockTime         time.Time
+	}{
+		{
+			name:             "empty first request returns greeting",
+			inputJsonFile:    "../test/data/requests/empty_first_request.json",
+			expectedResponse: GreetingText,
+			mockFetcher:      nil,
+		},
+		{
+			name:          "class_and_date intent returns schedule",
+			inputJsonFile: "../test/data/requests/second_request_6a_tomorrow.json",
+			expectedResponse: `7 января будет 5 уроков
+Уроки начинаются в 08:30
+Математика
+Физика
+Русский язык
+История
+Литература
+Уроки закончатся в 13:05
+`,
+			mockFetcher: func(class string, date string) string {
+				assert.Equal(t, "6а", class)
+				assert.Equal(t, "07.01.2026", date) // tomorrow from 06.01.2026
+				return `7 января будет 5 уроков
+Уроки начинаются в 08:30
+Математика
+Физика
+Русский язык
+История
+Литература
+Уроки закончатся в 13:05
+`
+			},
+			mockTime: time.Date(2026, 1, 6, 10, 0, 0, 0, time.UTC),
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			jsonTextBytes, err := os.ReadFile(test.inputJsonFile)
+			assert.NoError(t, err, "Error reading local file")
+			var event domain.Event
+			err = json.Unmarshal(jsonTextBytes, &event)
+			assert.NoError(t, err, "failed parsing json %v")
+
+			handler := NewAliceHandler(test.mockFetcher)
+			if !test.mockTime.IsZero() {
+				handler.TimeNowFunc = func() time.Time { return test.mockTime }
+			}
+
+			response, err := handler.Handle(context.Background(), event)
+			assert.NoError(t, err)
+			if response != nil {
+				assert.Equal(t, test.expectedResponse, response.Response.Text)
+			} else {
+				t.Errorf("Response should be returned")
+			}
+		})
+	}
+}
 
 func TestFormatDayToAliceResponse(t *testing.T) {
 	tests := []struct {

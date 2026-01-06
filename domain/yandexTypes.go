@@ -55,7 +55,7 @@ type Slot struct {
 
 type SlotsClassAndDate struct {
 	ClassNumber    Slot `json:"class_number,omitempty"`
-	ClassCharacter Slot `json:"class_character,omitempty"`
+	ClassCharacter Slot `json:"class_charachter,omitempty"`
 	DayOfWeek      Slot `json:"day_of_week,omitempty"`
 	Date           Slot `json:"date,omitempty"`
 }

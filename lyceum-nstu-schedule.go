@@ -13,25 +13,10 @@ import (
 	"os"
 )
 
+// Handler is the Yandex.Alice skill handler entry point
 func Handler(ctx context.Context, event domain.Event) (*domain.Response, error) {
-
-	text := "Привет, я могу рассказать расписание инженерного лицея НГТУ. Расписание какого класса и в какой день вас интересует?"
-	if event.Request.OriginalUtterance != "" {
-		text = event.Request.OriginalUtterance
-	}
-
-	return &domain.Response{
-		Version: event.Version,
-		Session: domain.ResponseSession{
-			SessionID: event.Session.SessionID,
-			MessageID: event.Session.MessageID,
-			UserID:    event.Session.UserID,
-		},
-		Response: domain.ResponsePayload{
-			Text:       text,
-			EndSession: false,
-		},
-	}, nil
+	handler := internal.NewAliceHandler(fetchDataAndReturnAliceResponse)
+	return handler.Handle(ctx, event)
 }
 
 func fetchDataAndReturnAliceResponse(class string, date string) string {
