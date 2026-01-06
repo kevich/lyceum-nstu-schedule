@@ -9,6 +9,10 @@ tasks:
     cmd: go clean -testcache
   tests:
     cmd: go test ./...
+  build:
+    cmd: go build -v ./...
+  run:
+    cmd: go run . {{.CLI_ARGS}}
   tests:coverage:
     cmds:
       - go test ./... -coverprofile cover.out
