@@ -26,7 +26,7 @@ func TestHandler(t *testing.T) {
 			mockFetcher:      nil,
 		},
 		{
-			name:          "class_and_date intent returns schedule",
+			name:          "class_and_date intent with relative date returns schedule",
 			inputJsonFile: "../test/data/requests/second_request_6a_tomorrow.json",
 			expectedResponse: `7 января будет 5 уроков
 Уроки начинаются в 08:30
@@ -48,6 +48,29 @@ func TestHandler(t *testing.T) {
 История
 Литература
 Уроки закончатся в 13:05
+`
+			},
+			mockTime: time.Date(2026, 1, 6, 10, 0, 0, 0, time.UTC),
+		},
+		{
+			name:          "class_and_date intent with absolute date returns schedule",
+			inputJsonFile: "../test/data/requests/request_6g_klass_6_december.json",
+			expectedResponse: `6 декабря будет три урока
+Уроки начинаются в 08:30
+Химия
+Биология
+География
+Уроки закончатся в 11:05
+`,
+			mockFetcher: func(class string, date string) string {
+				assert.Equal(t, "6г", class)
+				assert.Equal(t, "06.12.2026", date) // absolute date December 6th
+				return `6 декабря будет три урока
+Уроки начинаются в 08:30
+Химия
+Биология
+География
+Уроки закончатся в 11:05
 `
 			},
 			mockTime: time.Date(2026, 1, 6, 10, 0, 0, 0, time.UTC),
