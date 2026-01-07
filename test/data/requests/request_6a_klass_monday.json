@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "locale": "ru-RU",
+    "timezone": "UTC",
+    "client_id": "ru.yandex.searchplugin/7.16 (none none; android 4.4.2)",
+    "interfaces": {
+      "screen": {},
+      "payments": {},
+      "account_linking": {}
+    }
+  },
+  "session": {
+    "message_id": 1,
+    "session_id": "5ee8f601-63ad-4299-bd17-e10eb282d7f2",
+    "skill_id": "91cc6444-be20-4cec-867b-456de39292be",
+    "user": {
+      "user_id": "C39A30BD6CAE301C55AC975DC1F0D3304BA674E86D4CB12643464AC207031FE6"
+    },
+    "application": {
+      "application_id": "636D0CCBB04BBA4C66F45C7AED158838B9ACB6666D9720BC037C848FF22CE3C1"
+    },
+    "user_id": "636D0CCBB04BBA4C66F45C7AED158838B9ACB6666D9720BC037C848FF22CE3C1",
+    "new": false
+  },
+  "request": {
+    "command": "6 а класс понедельник",
+    "original_utterance": "6а класс понедельник",
+    "nlu": {
+      "tokens": [
+        "6",
+        "а",
+        "класс",
+        "понедельник"
+      ],
+      "entities": [],
+      "intents": {
+        "class_and_date": {
+          "slots": {
+            "class_number": {
+              "type": "YANDEX.NUMBER",
+              "tokens": {
+                "start": 0,
+                "end": 1
+              },
+              "value": 6
+            },
+            "class_charachter": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 1,
+                "end": 2
+              },
+              "value": "а"
+            },
+            "day_of_week": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 3,
+                "end": 4
+              },
+              "value": "понедельник"
+            }
+          }
+        }
+      }
+    },
+    "markup": {
+      "dangerous_context": false
+    },
+    "type": "SimpleUtterance"
+  },
+  "state": {
+    "session": {},
+    "user": {},
+    "application": {}
+  },
+  "version": "1.0"
+}

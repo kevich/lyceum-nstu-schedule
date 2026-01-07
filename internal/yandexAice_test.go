@@ -75,6 +75,33 @@ func TestHandler(t *testing.T) {
 			},
 			mockTime: time.Date(2026, 1, 6, 10, 0, 0, 0, time.UTC),
 		},
+		{
+			name:          "class_and_date intent with day_of_week returns schedule",
+			inputJsonFile: "../test/data/requests/request_6a_klass_monday.json",
+			expectedResponse: `12 января будет 5 уроков
+Уроки начинаются в 08:30
+Математика
+Физика
+Русский язык
+История
+Литература
+Уроки закончатся в 13:05
+`,
+			mockFetcher: func(class string, date string) string {
+				assert.Equal(t, "6а", class)
+				assert.Equal(t, "12.01.2026", date) // next Monday from Wednesday Jan 7, 2026
+				return `12 января будет 5 уроков
+Уроки начинаются в 08:30
+Математика
+Физика
+Русский язык
+История
+Литература
+Уроки закончатся в 13:05
+`
+			},
+			mockTime: time.Date(2026, 1, 7, 10, 0, 0, 0, time.UTC), // Wednesday
+		},
 	}
 
 	for _, test := range tests {

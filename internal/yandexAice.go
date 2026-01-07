@@ -32,6 +32,11 @@ func (h *AliceHandler) Handle(ctx context.Context, event domain.Event) (*domain.
 		className := h.extractClassName(intent.Slots)
 		date := h.resolveDate(event.Meta.Timezone, intent.Slots.Date)
 
+		// If no date slot, try to resolve from day_of_week slot
+		if date == "" {
+			date = h.resolveDayOfWeek(event.Meta.Timezone, intent.Slots.DayOfWeek)
+		}
+
 		if className != "" && date != "" && h.Fetcher != nil {
 			text = h.Fetcher(className, date)
 		}
@@ -61,6 +66,52 @@ func (h *AliceHandler) extractClassName(slots domain.SlotsClassAndDate) string {
 		return ""
 	}
 	return fmt.Sprintf("%d%s", int(classNum), classChar)
+}
+
+var russianWeekdays = map[string]time.Weekday{
+	"понедельник": time.Monday,
+	"вторник":     time.Tuesday,
+	"среда":       time.Wednesday,
+	"среду":       time.Wednesday,
+	"четверг":     time.Thursday,
+	"пятница":     time.Friday,
+	"пятницу":     time.Friday,
+	"суббота":     time.Saturday,
+	"субботу":     time.Saturday,
+	"воскресенье": time.Sunday,
+}
+
+func (h *AliceHandler) resolveDayOfWeek(timezone string, dayOfWeekSlot domain.Slot) string {
+	if dayOfWeekSlot.Value == nil {
+		return ""
+	}
+
+	dayName, ok := dayOfWeekSlot.Value.(string)
+	if !ok {
+		return ""
+	}
+
+	targetWeekday, ok := russianWeekdays[dayName]
+	if !ok {
+		return ""
+	}
+
+	loc, err := time.LoadLocation(timezone)
+	if err != nil {
+		loc = time.UTC
+	}
+
+	now := h.TimeNowFunc().In(loc)
+	currentWeekday := now.Weekday()
+
+	// Calculate days until the target weekday
+	daysUntil := int(targetWeekday) - int(currentWeekday)
+	if daysUntil <= 0 {
+		daysUntil += 7 // Move to next week if today or past
+	}
+
+	targetDate := now.AddDate(0, 0, daysUntil)
+	return targetDate.Format("02.01.2006")
 }
 
 func (h *AliceHandler) resolveDate(timezone string, dateSlot domain.Slot) string {
