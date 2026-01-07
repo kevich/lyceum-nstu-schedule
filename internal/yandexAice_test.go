@@ -26,6 +26,12 @@ func TestHandler(t *testing.T) {
 			mockFetcher:      nil,
 		},
 		{
+			name:             "unrecognized command returns error message",
+			inputJsonFile:    "../test/data/requests/unrecognized_command.json",
+			expectedResponse: "Простите, я не смогла распознать команду. Попробуйте еще раз.",
+			mockFetcher:      nil,
+		},
+		{
 			name:          "class_and_date intent with relative date returns schedule",
 			inputJsonFile: "../test/data/requests/second_request_6a_tomorrow.json",
 			expectedResponse: `7 января будет 5 уроков

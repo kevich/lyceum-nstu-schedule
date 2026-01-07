@@ -25,6 +25,9 @@ const GreetingText = "Привет, я могу рассказать распи�
 
 func (h *AliceHandler) Handle(ctx context.Context, event domain.Event) (*domain.Response, error) {
 	text := GreetingText
+	if event.Session.MessageID != 0 {
+		text = "Простите, я не смогла распознать команду. Попробуйте еще раз."
+	}
 
 	// Check if we have a class_and_date intent
 	intent := event.Request.NLU.Intents.ClassAndDate
