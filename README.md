@@ -12,4 +12,4 @@ A Go application that scrapes and transforms NSTU Lyceum schedule data into a st
 - Ready for Yandex.Alice voice assistant integration
 
 ### Development
-Prerequisites: Go 1.25+
+Prerequisites: Go 1.23+
