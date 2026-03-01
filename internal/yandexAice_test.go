@@ -32,6 +32,18 @@ func TestHandler(t *testing.T) {
 			mockFetcher:      nil,
 		},
 		{
+			name:             "what you can do command returns help message",
+			inputJsonFile:    "../test/data/requests/what_you_can_do.json",
+			expectedResponse: domain.HelpText,
+			mockFetcher:      nil,
+		},
+		{
+			name:             "help command returns help message",
+			inputJsonFile:    "../test/data/requests/help.json",
+			expectedResponse: domain.HelpText,
+			mockFetcher:      nil,
+		},
+		{
 			name:          "class_and_date intent with relative date returns schedule",
 			inputJsonFile: "../test/data/requests/second_request_6a_tomorrow.json",
 			expectedResponse: `7 января будет 5 уроков

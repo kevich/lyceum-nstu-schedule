@@ -45,6 +45,10 @@ func (h *AliceHandler) Handle(ctx context.Context, event domain.Event) (*domain.
 		}
 	}
 
+	if event.Request.Command == "помощь" || event.Request.Command == "что ты умеешь" {
+		text = domain.HelpText
+	}
+
 	return &domain.Response{
 		Version: event.Version,
 		Session: domain.ResponseSession{
