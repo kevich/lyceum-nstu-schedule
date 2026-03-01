@@ -159,12 +159,37 @@ func (h *AliceHandler) resolveDate(timezone string, dateSlot domain.Slot) string
 	return ""
 }
 
+func hasNotCancelledLesson(lessons []domain.Lesson) bool {
+	for _, lesson := range lessons {
+		if !lesson.IsCancelled {
+			return true
+		}
+	}
+	return false
+}
+
 func FormatDayToAliceResponse(day string, daySchedule domain.DaySchedule) string {
 	dayString := ""
 	lessonFormatter := LessonsFormatter()
 	xLessons := lessonFormatter.Sprintf("%d уроков", len(daySchedule))
 	dayString += fmt.Sprintf("%s будет %s\n", FormatDate(day), xLessons)
-	dayString += fmt.Sprintf("Уроки начинаются в %s\n", daySchedule[0][0].TimeRange[0])
+
+	// Use first/last non-cancelled lesson slot for day boundaries.
+	// If all lessons are cancelled, fall back to the original slot boundaries.
+	firstSlotIdx := 0
+	lastSlotIdx := len(daySchedule) - 1
+	foundActiveSlot := false
+	for i, lessons := range daySchedule {
+		if hasNotCancelledLesson(lessons) {
+			if !foundActiveSlot {
+				firstSlotIdx = i
+				foundActiveSlot = true
+			}
+			lastSlotIdx = i
+		}
+	}
+
+	dayString += fmt.Sprintf("Уроки начинаются в %s\n", daySchedule[firstSlotIdx][0].TimeRange[0])
 
 	for _, lessons := range daySchedule {
 		for index, lesson := range lessons {
@@ -184,6 +209,6 @@ func FormatDayToAliceResponse(day string, daySchedule domain.DaySchedule) string
 		}
 	}
 
-	dayString += fmt.Sprintf("Уроки закончатся в %s\n", daySchedule[len(daySchedule)-1][0].TimeRange[1])
+	dayString += fmt.Sprintf("Уроки закончатся в %s\n", daySchedule[lastSlotIdx][0].TimeRange[1])
 	return dayString
 }

@@ -202,7 +202,7 @@ func TestFormatDayToAliceResponse(t *testing.T) {
 				"Уроки начинаются в 08:30\n" +
 				"Математика\n" +
 				"Физика - отменен\n" +
-				"Уроки закончатся в 10:10\n",
+				"Уроки закончатся в 09:15\n",
 		},
 		{
 			name: "lesson with empty name",
@@ -296,6 +296,27 @@ func TestFormatDayToAliceResponse(t *testing.T) {
 				"1 группа - Английский язык - отменен\n" +
 				"2 группа - Немецкий язык\n" +
 				"Уроки закончатся в 09:15\n",
+		},
+		{
+			name: "cancelled lessons are excluded from start and end times",
+			day:  "23.01.2024",
+			daySchedule: domain.DaySchedule{
+				{
+					{Number: 1, TimeRange: [2]string{"08:30", "09:15"}, Name: "Математика", IsCancelled: true},
+				},
+				{
+					{Number: 2, TimeRange: [2]string{"09:25", "10:10"}, Name: "Физика"},
+				},
+				{
+					{Number: 3, TimeRange: [2]string{"10:20", "11:05"}, Name: "История", IsCancelled: true},
+				},
+			},
+			expected: "23 января будет три урока\n" +
+				"Уроки начинаются в 09:25\n" +
+				"Математика - отменен\n" +
+				"Физика\n" +
+				"История - отменен\n" +
+				"Уроки закончатся в 10:10\n",
 		},
 	}
 
